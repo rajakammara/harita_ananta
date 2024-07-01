@@ -15,7 +15,8 @@ class PlantCollectionController extends Controller
      */
     public function index()
     {
-        //
+        $plantCollection = \App\Models\PlantCollection::with(['user'])->paginate();
+        return view('dashboard', compact('plantCollection'));
     }
 
     /**

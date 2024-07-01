@@ -8,8 +8,8 @@
         <!-- Mobile Address -->
         <div>
             <x-input-label for="mobile" :value="__('Mobile')" />
-            <x-text-input id="mobile" class="block mt-1 w-full" type="number" name="email" :value="old('email')"
-                required autofocus autocomplete="username" />
+            <x-text-input id="mobile" class="block mt-1 w-full" type="number" name="mobile" :value="old('mobile')"
+                required autofocus autocomplete="mobile" />
             <x-input-error :messages="$errors->get('mobile')" class="mt-2" />
         </div>
 
