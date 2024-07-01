@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ApiAuthController;
 use App\Http\Controllers\API\ApiResponseController;
+use App\Http\Controllers\PlantCollectionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,10 @@ Route::middleware(['auth:sanctum'])->group(
         Route::post('/logout', [ApiAuthController::class, 'logout']);
         Route::get('/getUserPlantCollection', [ApiResponseController::class, 'getUserPlantCollection']);
         Route::get('/getAllPlantCollection', [ApiResponseController::class, 'getAllPlantCollection']);
+        Route::post('/createPlantCollection', [PlantCollectionController::class, 'store']);
     }
 );
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
+    return response()->json($request->user());
 });

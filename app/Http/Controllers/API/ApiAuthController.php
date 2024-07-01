@@ -19,7 +19,7 @@ class ApiAuthController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|unique:users|max:255',
                 'password' => 'required|min:8',
-                'mobile_no' => 'required|max:10|min:10',
+                'mobile' => 'required|max:10|min:10',
 
             ]);
             // Return errors if validation error occur.
@@ -36,7 +36,7 @@ class ApiAuthController extends Controller
             $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
-                'mobile_no' => $request->mobile_no,
+                'mobile' => $request->mobile,
                 'password' => Hash::make($request->password),
                 'latitude' => $request->latitude,
                 'longitude' => $request->longitude,
@@ -58,7 +58,7 @@ class ApiAuthController extends Controller
                 'token_type' => 'Bearer',
                 'username' => $request->name,
                 'email' => $request->email,
-                'mobile_no' => $request->mobile_no,
+                'mobile' => $request->mobile,
                 'id' => $user->id,
                 'role' => $role,
                 'dept_id' => $dept_id,
@@ -79,11 +79,11 @@ class ApiAuthController extends Controller
     {
         try {
             $request->validate([
-                'mobile_no' => 'required',
+                'mobile' => 'required',
                 'password' => 'required',
             ]);
 
-            $user = User::where('mobile_no', $request->mobile_no)->first();
+            $user = User::where('mobile', $request->mobile)->first();
 
             if (!$user || !Hash::check($request->password, $user->password)) {
                 // throw ValidationException::withMessages([
@@ -109,7 +109,7 @@ class ApiAuthController extends Controller
                 'role' => $role,
                 'user_id' => $user->id,
                 'user_name' => $user->name,
-                'mobile_no' => $user->mobile_no,
+                'mobile_no' => $user->mobile,
                 'email' => $user->email,
                 'can_forward_issue' => $user->can_forward_issue,
                 'can_close_issue' => $user->can_close_issue,

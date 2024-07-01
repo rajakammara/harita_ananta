@@ -1,0 +1,48 @@
+POST http://harita.test/api/register HTTP/1.1
+content-type: application/json
+
+{
+    "mobile": "9703170422",
+    "name": "Raja Kammara",
+    "email" : "test2@email.com",
+    "password" : "raja1234"
+}
+
+###
+
+POST http://harita.test/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "mobile": "9703170422",    
+    "password" : "raja1234"
+}
+# "access_token": "3|tnMvgdDkAcZJWFF3oRaVUxjuub92f9Aiv0gDRupq7cb723dc"
+###
+
+POST http://harita.test/api/logout
+Content-Type: application/json
+Authorization: Bearer 3|tnMvgdDkAcZJWFF3oRaVUxjuub92f9Aiv0gDRupq7cb723dc
+
+###
+
+GET http://harita.test/api/user
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 3|tnMvgdDkAcZJWFF3oRaVUxjuub92f9Aiv0gDRupq7cb723dc
+
+###
+
+POST http://harita.test/api/createPlantCollection HTTP/1.1
+//Accept: application/json
+Authorization: Bearer 1|aIVKloMNuPWES2irp6vGkfpAPRmmXtIzonSzvWHxe1c18c4c
+content-type: application/json
+
+{    
+    "plant_name": "Guava",
+    "latitude" : "14.566",
+    "longitude" : "78.6666",
+    "mandal" : "Anantapur",
+    "village" : "Anantapur",
+    "photo" : "Test.jpg",
+}

@@ -36,49 +36,51 @@ class PlantCollectionController extends Controller
      */
     public function store(Request $request)
     {
+        //return $request->all();
+
         try {
-            $request->validate([
+            if (auth('sanctum')->check()) {
+                $userid = auth('sanctum')->user()->id;
+                $request->validate([
+                    //"user_id" => "required",
+                    "plant_name" => "required",
+                    "latitude" => "required",
+                    "longitude" => "required",
+                    //"photo" => "required|image|max:1000",
+                ], [
+                    // "user_id.required" => "Please Insert Userid",
+                    "plant_name.required" => "Please enter Plant Name",
+                    "latitude.required" => "Please Insert Latitude",
+                    "longitude.required" => "Please Longitude",
+                    //"photo.required" => "Please Insert Photo",
+                ]);
+                if ($request->hasFile("photo")) {
+                    // Get filename with the extension
+                    $filenameWithExt = $request->file('photo')->getClientOriginalName();
+                    // Get just filename
+                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                    // Get just ext
+                    $extension = $request->file('photo')->getClientOriginalExtension();
+                    // Filename to store
+                    $fileNameToStore = $filename . '_' . time() . '.' . $extension;
+                    // Upload Image
+                    $path = $request->file('photo')->storeAs('public/images/plantcollection', $fileNameToStore);
+                } else {
+                    $fileNameToStore = "Testing.jpg";
+                }
 
-                "user_id" => "required",
-                "plant_name" => "required",
-                "latitude" => "required",
-                "longitude" => "required",
-                //"photo" => "required|image|max:1000",
-
-            ], [
-
-                "user_id.required" => "Please Insert Userid",
-                "plant_name.required" => "Please enter Plant Name",
-                "latitude.required" => "Please Insert Latitude",
-                "longitude.required" => "Please Longitude",
-                //"photo.required" => "Please Insert Photo",
-            ]);
-            if ($request->hasFile("photo")) {
-                // Get filename with the extension
-                $filenameWithExt = $request->file('photo')->getClientOriginalName();
-                // Get just filename
-                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
-                // Get just ext
-                $extension = $request->file('photo')->getClientOriginalExtension();
-                // Filename to store
-                $fileNameToStore = $filename . '_' . time() . '.' . $extension;
-                // Upload Image
-                $path = $request->file('photo')->storeAs('public/images/plantcollection', $fileNameToStore);
-            } else {
-                $fileNameToStore = "Testing.jpg";
+                // Create New Plant Collection
+                $plantCollection = new PlantCollection();
+                $plantCollection->user_id = $userid;
+                $plantCollection->plant_name = $request->get('plant_name');
+                $plantCollection->latitude = $request->get('latitude');
+                $plantCollection->longitude = $request->get('longitude');
+                $plantCollection->mandal = $request->get('mandal');
+                $plantCollection->village = $request->get('village');
+                $plantCollection->photo = $fileNameToStore;
+                $plantCollection->save();
+                return response()->json(['status' => "success", 'message' => "Plant Collection Added Successfully!"], 200);
             }
-
-            // Create New Plant Collection
-            $plantCollection = new PlantCollection();
-            $plantCollection->user_id = $request->get('user_id');
-            $plantCollection->plant_name = $request->get('plant_name');
-            $plantCollection->latitude = $request->get('latitude');
-            $plantCollection->longitude = $request->get('longitude');
-            $plantCollection->mandal = $request->get('mandal');
-            $plantCollection->village = $request->get('village');
-            $plantCollection->photo = $fileNameToStore;
-            $plantCollection->save();
-            return response()->json(['status' => "success", 'message' => "Plant Collection Added Successfully!"], 200);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 'fail',

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('mandal')->nullable();
             $table->string('district')->default('Ananthapuramu');
             $table->unsignedBigInteger('user_id');
+            $table->string('photo')->nullable();
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
         });
