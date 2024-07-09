@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/plantscollection', [PlantCollectionController::class, 'index'])->name('plantscollection');
+    Route::get('/mandalcollection', [DashboardController::class, 'index'])->name('mandalcollection');
 });
 
 
