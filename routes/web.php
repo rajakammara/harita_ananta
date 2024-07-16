@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/plantscollection', [PlantCollectionController::class, 'index'])->name('plantscollection');
 
+    Route::get('/mandalplantscollection/{mandal}/{village}', [PlantCollectionController::class, 'plantcollection_mandal_village'])->name('mandalplantscollection');
+
     //Dashboard routes
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     // Mandal Report

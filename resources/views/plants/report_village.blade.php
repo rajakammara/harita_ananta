@@ -14,16 +14,22 @@
               <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                   <th scope="col" class="py-3 px-6 border">Sl.No.</th>
+                  <th scope="col" class="py-3 px-6 border">Mandal</th>
                   <th scope="col" class="py-3 px-6 border">Village</th>
                   <th scope="col" class="py-3 px-6 border">Total Adopted Plants</th>
-
                 </tr>
               </thead>
               <tbody>
                 @forelse ($plantcount as $plant)
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                   <td class="py-4 px-6 border">{{ $loop->iteration }}</td>
-                  <td class="py-4 px-6 border">{{ $plant->village }}</td>
+                  <td class="py-4 px-6 border">{{ $plant->mandal }}</td>
+                  <td class="py-4 px-6 border">
+                    <a class="text-blue-500 underline font-semibold"
+                      href="{{route('mandalplantscollection',['mandal' =>$plant->mandal,'village'=>$plant->village])}}">
+                      {{ $plant->village }}
+                    </a>
+                  </td>
                   <td class="py-4 px-6 border">
                     {{ $plant->total_plants }}
                   </td>

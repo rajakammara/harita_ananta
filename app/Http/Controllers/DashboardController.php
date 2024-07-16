@@ -26,9 +26,9 @@ class DashboardController extends Controller
     public function getVillageReport($mandal)
     {
         $plantcount =   DB::table('plant_collections')
-            ->selectRaw('village,count(*) as total_plants')
+            ->selectRaw('mandal,village,count(*) as total_plants')
             ->where('mandal', '=', $mandal)
-            ->groupBy('village')->get();
+            ->groupBy('mandal', 'village')->get();
         return view('plants.report_village', compact('plantcount'));
     }
 
@@ -40,6 +40,7 @@ class DashboardController extends Controller
             ->groupBy('mandal')->get();
         return view('plants.report_mandal', compact('plantcount'));
     }
+
 
     /**
      * Show the form for creating a new resource.

@@ -19,6 +19,12 @@ class PlantCollectionController extends Controller
         return view('plants.index', compact('plantCollection'));
     }
 
+    public function plantcollection_mandal_village($mandal, $village)
+    {
+        $plantCollection = \App\Models\PlantCollection::with(['user'])->where('mandal', '=', $mandal)->where('village', '=', $village)->paginate();
+        return view('plants.index', compact('plantCollection'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
