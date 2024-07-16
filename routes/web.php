@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/plantscollection', [PlantCollectionController::class, 'index'])->name('plantscollection');
 
+    Route::get('/export_plant_collection', [PlantCollectionController::class, 'export_to_csv'])->name('export_to_csv');
+
     Route::get('/mandalplantscollection/{mandal}/{village}', [PlantCollectionController::class, 'plantcollection_mandal_village'])->name('mandalplantscollection');
 
     //Dashboard routes

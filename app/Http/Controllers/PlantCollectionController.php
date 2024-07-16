@@ -25,6 +25,55 @@ class PlantCollectionController extends Controller
         return view('plants.index', compact('plantCollection'));
     }
 
+    public function export_to_csv()
+    {
+        //return response("working");
+        try {
+            $filename = 'plant-collection.csv';
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => "attachment; filename=\"$filename\"",
+                'Pragma' => 'no-cache',
+                'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+                'Expires' => '0',
+            ];
+
+
+
+
+            return response()->stream(function () {
+                $columns = array(
+                    'Mandal',
+                    'Village',
+                    'PlantName',
+                    'Latitude',
+                    'Longitude',
+                    'PlantedOn'
+                );
+                $handle = fopen('php://output', 'w');
+                PlantCollection::chunk(25, function ($plants) use ($columns, $handle) {
+
+                    fputcsv($handle, $columns);
+                    foreach ($plants as $plant) {
+                        $data = [
+                            isset($plant->mandal) ? $plant->mandal : '',
+                            isset($plant->village) ? $plant->village : '',
+                            isset($plant->plant_name) ? $plant->plant_name : '',
+                            isset($plant->latitude) ? $plant->latitude : '',
+                            isset($plant->longitude) ? $plant->longitude : '',
+                            isset($plant->created_at) ? $plant->created_at : '',
+
+                        ];
+                        fputcsv($handle, $data);
+                    }
+                    fclose($handle);
+                });
+            }, 200, $headers);
+        } catch (\Throwable $th) {
+            return response($th->getMessage());
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

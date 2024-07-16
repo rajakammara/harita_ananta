@@ -8,7 +8,14 @@
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+
         <div class="p-6 text-gray-900">
+
+          <h4 style="margin:1rem"><a class="text-white bg-sky-500 hover:bg-sky-700 p-2 mb-8"
+              href="/export_plant_collection">Export to
+              Excel</a>
+          </h4>
+
           <div class="overflow-auto">
             <table class="table-auto ">
               <thead class="text-xs text-gray-700 uppercase bg-gray-300 dark:bg-gray-700 dark:text-gray-400">
