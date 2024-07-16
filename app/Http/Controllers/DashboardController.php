@@ -23,6 +23,24 @@ class DashboardController extends Controller
         return view('dashboard', compact('plantcount', 'usercount', 'plantdistinct'));
     }
 
+    public function getVillageReport($mandal)
+    {
+        $plantcount =   DB::table('plant_collections')
+            ->selectRaw('village,count(*) as total_plants')
+            ->where('mandal', '=', $mandal)
+            ->groupBy('village')->get();
+        return view('plants.report_village', compact('plantcount'));
+    }
+
+    public function getMandalReport()
+    {
+
+        $plantcount =   DB::table('plant_collections')
+            ->selectRaw('mandal,count(*) as total_plants')
+            ->groupBy('mandal')->get();
+        return view('plants.report_mandal', compact('plantcount'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
