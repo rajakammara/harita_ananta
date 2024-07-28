@@ -17,7 +17,7 @@ content-type: application/json
     "mobile": "9703170422",    
     "password" : "raja1234"
 }
-# "access_token": "3|tnMvgdDkAcZJWFF3oRaVUxjuub92f9Aiv0gDRupq7cb723dc"
+# "access_token": "2|6GXfwMJoGhhTlLbpybQPUKv9Rme65CnqcOUPgvvJ6844fefe"
 ###
 
 POST http://harita.test/api/logout
@@ -45,4 +45,22 @@ content-type: application/json
     "mandal" : "Anantapur",
     "village" : "Anantapur",
     "photo" : "Test.jpg",
+}
+
+###
+GET http://harita.test/api/userprofile
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer 2|6GXfwMJoGhhTlLbpybQPUKv9Rme65CnqcOUPgvvJ6844fefe
+
+###
+POST http://harita.test/api/userprofile
+Accept: application/json
+Authorization: Bearer 2|6GXfwMJoGhhTlLbpybQPUKv9Rme65CnqcOUPgvvJ6844fefe
+Content-Type: application/json
+
+{    
+    "dept_name": "PR & D",
+    "designation" : "Admin"
+    
 }
