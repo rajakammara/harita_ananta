@@ -66,6 +66,8 @@ class ApiAuthController extends Controller
                 'latitude' => $user->latitude,
                 'longitude' => $user->longitude,
                 'mandal' => $user->mandal,
+                'is_deptuser' => $user->is_department_user,
+                'dashboard_access' => $user->dashboard_access,
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -102,8 +104,8 @@ class ApiAuthController extends Controller
             $dept_id = $user->dept_id == null ? 0 : $user->dept_id;
             $division_id = $user->division_id == null ? 0 : $user->division_id;
 
-            $deptname = $user->userprofile->dept_name == null ? "" : $user->userprofile->dept_name;
-            $designation = $user->userprofile->designation == null ? "" : $user->userprofile->designation;
+            $deptname = $user->userprofile?->dept_name;
+            $designation = $user->userprofile?->designation;
 
             return response()->json([
                 'status' => "ok",

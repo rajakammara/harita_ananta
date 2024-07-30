@@ -2,9 +2,9 @@ POST http://harita.test/api/register HTTP/1.1
 content-type: application/json
 
 {
-    "mobile": "9703170422",
+    "mobile": "9703170400",
     "name": "Raja Kammara",
-    "email" : "test2@email.com",
+    "email" : "test400@email.com",
     "password" : "raja1234"
 }
 
