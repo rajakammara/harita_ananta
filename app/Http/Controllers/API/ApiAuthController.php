@@ -102,6 +102,9 @@ class ApiAuthController extends Controller
             $dept_id = $user->dept_id == null ? 0 : $user->dept_id;
             $division_id = $user->division_id == null ? 0 : $user->division_id;
 
+            $deptname = $user->userprofile->dept_name == null ? "" : $user->userprofile->dept_name;
+            $designation = $user->userprofile->designation == null ? "" : $user->userprofile->designation;
+
             return response()->json([
                 'status' => "ok",
                 'access_token' => $token,
@@ -111,10 +114,10 @@ class ApiAuthController extends Controller
                 'user_name' => $user->name,
                 'mobile_no' => $user->mobile,
                 'email' => $user->email,
-                'can_forward_issue' => $user->can_forward_issue,
-                'can_close_issue' => $user->can_close_issue,
-                'is_deptuser' => $user->is_deptuser,
-                'dept_id' => $dept_id,
+                'deptname' => $deptname,
+                'designation' => $designation,
+                'is_deptuser' => $user->is_department_user,
+                'dashboard_access' => $user->dashboard_access,
                 'division_id' => $division_id,
                 'mandal' => $user->mandal,
                 'latitude' => $user->latitude,

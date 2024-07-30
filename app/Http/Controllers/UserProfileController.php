@@ -51,15 +51,18 @@ class UserProfileController extends Controller
             if (auth('sanctum')->check()) {
                 $userid = auth('sanctum')->user()->id;
                 $request->validate([
+                    "dept_id" => "required",
                     "dept_name" => "required",
                     "designation" => "required"
 
                 ], [
+                    "dept_id.required" => "Please enter department id",
                     "dept_name.required" => "Please enter department name",
                     "designation.required" => "Please enter designation"
                 ]);
                 $userProfile = new UserProfile();
                 $userProfile->user_id = $userid;
+                $userProfile->dept_id = $request->dept_id;
                 $userProfile->dept_name = $request->dept_name;
                 $userProfile->designation = $request->designation;
                 $userProfile->save();

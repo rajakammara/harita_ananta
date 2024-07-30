@@ -60,7 +60,7 @@ Authorization: Bearer 2|6GXfwMJoGhhTlLbpybQPUKv9Rme65CnqcOUPgvvJ6844fefe
 Content-Type: application/json
 
 {    
-    "dept_name": "PR & D",
-    "designation" : "Admin"
-    
+    "dept_name": "Revenue (CCLA)",
+    "designation" : "Admin",
+    "dept_id" : 107    
 }
